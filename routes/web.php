@@ -24,13 +24,13 @@ Route::delete('Subgroup/{id}', 'SubgroupController@destroy')->middleware('auth')
 /////////////////////////////////////
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/users', 'HomeController@users')->name('home.users');
+Route::get('/ads/home', 'AdController@userindex')->name('user.index')->middleware('auth');
 Route::patch('/home/{id}', 'HomeController@toggle')->name('home.update');
 Route::delete('/home/{id}', 'HomeController@destroy')->name('home.destroy');
 /////////////////////////////////////////////////////
 Route::get('/user', 'UserController@index')->name('user');
 ///////////////////////////////////
 Route::Resource('ads', 'AdController')->except(['create', 'show'])->middleware('auth');
-Route::get('/ads/home', 'AdController@userindex')->name('user.index')->middleware('auth');
 Route::get('create/{id}', 'AdController@create')->name('ads.create')->middleware('auth');
 Route::get('ads/show/{id}', 'AdController@show')->name('ads.show');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ad;
 use App\City;
+use App\Group;
 use App\Http\Requests\AdRequest;
 use App\SubGroup;
 use Auth;
@@ -37,7 +38,8 @@ class AdController extends Controller
             return redirect()->route('city.index');
         }
         $ads = Ad::orderby('id', 'desc')->where('city_id', $province)->paginate(20);
-        return view('index', compact('ads'));
+        $group=Group::orderby('id','desc')->get();
+        return view('index', compact(['ads','group']));
     }
 
     /**
@@ -61,7 +63,7 @@ class AdController extends Controller
     public function store(AdRequest $request)
     {
 
-        $imagename = null;
+        $imagename = 'noimg.jpg';
 
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
