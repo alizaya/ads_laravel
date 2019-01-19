@@ -31,7 +31,7 @@
                                 <a href="{{route('ads.edit',$ad->id)}}" class="btn btn-warning">ویرایش</a>
                             </td>
                             <td>
-                                <form action="{{route('group.destroy',$ad->id)}}" method="post">
+                                <form action="{{route('ads.destroy',$ad->id)}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger" type="submit">حذف</button>

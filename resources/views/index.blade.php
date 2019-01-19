@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <div class="float-left col-md-3">
+    <div class="float-right col-md-3">
         <div class="row">
             @foreach($group as $g)
 
-                <a href="{{route('ads.index')}}" class="btn btn-secondary"></a>
+                <a href="{{route('ads.index',['group'=>$g->id])}}" class="btn btn-secondary btn-block">{{$g->name}}</a>
 
             @endforeach
         </div>

@@ -22,7 +22,7 @@ Route::get('Subgroup/{id}', 'SubgroupController@index')->middleware('auth')->nam
 Route::post('Subgroup/{id}', 'SubgroupController@store')->middleware('auth')->name('subgroup.store');
 Route::delete('Subgroup/{id}', 'SubgroupController@destroy')->middleware('auth')->name('subgroup.destroy');
 /////////////////////////////////////
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware(\App\Http\Middleware\RedirectPolicy::class);
 Route::get('/home/users', 'HomeController@users')->name('home.users');
 Route::get('/ads/home', 'AdController@userindex')->name('user.index')->middleware('auth');
 Route::patch('/home/{id}', 'HomeController@toggle')->name('home.update');

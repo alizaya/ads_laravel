@@ -30,14 +30,28 @@ class AdController extends Controller
         return view('user.adsindex', compact('ads'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if (Cookie::has('province')) {
             $province = Cookie::get('province');
         } else {
             return redirect()->route('city.index');
         }
-        $ads = Ad::orderby('id', 'desc')->where('city_id', $province)->paginate(20);
+        \DB::enableQueryLog();
+
+        $ads = Ad::orderby('id', 'desc');
+            if($request->get('group'))
+            {
+                $id=SubGroup::where('group_id',$request->get('group'))->get(['id'])->toarray();
+                foreach ($id as $i)
+                {
+                    $ads=$ads->orwhere('subgroup_id',$i['id']);
+
+                }
+            }
+
+            $ads=$ads->where('city_id', $province)->paginate(20);
+//            dd(\DB::getQueryLog());
         $group=Group::orderby('id','desc')->get();
         return view('index', compact(['ads','group']));
     }
@@ -119,6 +133,7 @@ class AdController extends Controller
     public function update(AdRequest $request, $id)
     {
         $ads = Ad::findorfail($id);
+        $this->authorize('update', $ads);
         $imagename = $ads->image;
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
@@ -146,6 +161,7 @@ class AdController extends Controller
     {
 
         $ads = Ad::findorfail($id);
+        $this->authorize('delete', $ads);
         $ads->delete();
         return back();
     }
