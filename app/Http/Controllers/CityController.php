@@ -12,7 +12,6 @@ class CityController extends Controller
     public function index()
     {
         $province=Province::all();
-
         return view('city.cityindex',compact('province'));
     }
 

@@ -20,6 +20,8 @@ class CreateCountiesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+        \DB::unprepared(file_get_contents(app_path('sql/counties.sql')));
+
     }
 
     /**

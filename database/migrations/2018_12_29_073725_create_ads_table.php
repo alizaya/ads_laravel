@@ -26,7 +26,6 @@ class CreateAdsTable extends Migration
             $table->string('price');
             $table->string('image');
             $table->text('caption');
-            $table->string('builder');
 
             $table->softDeletes();
             $table->timestamps();

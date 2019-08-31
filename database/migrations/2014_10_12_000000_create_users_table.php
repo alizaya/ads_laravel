@@ -17,11 +17,15 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('access_level')->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });
+        \App\User::create(["name" => "admin", "password" => \Hash::make("admin"), "access_level" => "admin", "email" => "admin@admin.com", "phone" => "09120000000"]);
     }
 
     /**
